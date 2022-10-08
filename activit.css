@@ -1,0 +1,17 @@
+.gri {
+  margin: 80px auto;
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
+  gap: 2rem;
+}
+
+.pad li {
+  padding-left: 20px;
+}
+
+#noNotas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
