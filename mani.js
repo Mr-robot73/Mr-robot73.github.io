@@ -11,7 +11,9 @@ document.getElementById("add").addEventListener("click", () => {
   let titule = document.getElementById("titulo").value;
   let description = document.getElementById("descrition").value;
 
-  if (titule === "" || description === "") return alert("rellene los campos");
+  if (titule === "" || description === "") {
+    return infoHtml("complete los campos necesarios", "red");
+  }
 
   const objectData = {
     id: Date.now(),
@@ -38,13 +40,25 @@ const cargar = () => {
     return;
   }
 
+  root.classList.remove("noNotas");
   root.classList.add("gri");
+
   data.map((item) => {
-    addNotaCart(item.id, item.titule, item.description);
+    cartLoading(item.id, item.titule, item.description);
   });
 };
 
-const addNotaCart = (id, titulo, description) => {
+const infoHtml = (info, color) => {
+  root.classList.remove("gri");
+  root.classList.add("noNotas");
+  root.innerHTML = `<h2 style="color:${color}";>${info}</h2>`;
+
+  setTimeout(() => {
+    cargar();
+  }, 1000 * 5);
+};
+
+const cartLoading = (id, titulo, description) => {
   root.innerHTML += `
     <div class="card transition" data-id=${id}>
       <div class="card-header card-header-text text-center card-header-primary">
@@ -60,13 +74,6 @@ const addNotaCart = (id, titulo, description) => {
       </div>
     </div>
     `;
-};
-
-const infoHtml = (info) => {
-  const div = document.createElement("div");
-  div.innerHTML = `<h2 class="noNotas">${info}</h2>`;
-  root.appendChild(div);
-  root.classList.remove("gri");
 };
 
 const eliminar = (event) => {
