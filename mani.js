@@ -1,60 +1,84 @@
-let datoB = []
-let idco = 0
+const root = document.getElementById("root");
+let array = [];
 
-const addTares = document.getElementById("tares");
+(() => {
+  document.addEventListener("DOMContentLoaded", () => {
+    createModal();
+    cargar();
+  });
+})();
 
-document.getElementById("add").addEventListener("click",()=>{
-  let InpTitulo = document.getElementById("tituloInp")
-  let InpDescri = document.getElementById("exampleFormControlTextarea1")
-  let titulo = InpTitulo.value
-  let descri = InpDescri.value
+document.getElementById("add").addEventListener("click", () => {
+  let titule = document.getElementById("titulo").value;
+  let description = document.getElementById("descrition").value;
 
-  document.getElementById("noNotas").innerHTML=""
+  if (titule === "" || description === "") return alert("rellene los campos");
 
-  datoB.push({id:idco,titulo,descri})
-  idco += 1
+  const objectData = {
+    id: Date.now(),
+    titule,
+    description,
+  };
+  array = [...array, objectData];
 
-  addTares.innerHTML=""
-  card()
+  localStorage.setItem("notes", JSON.stringify(array));
+  cargar();
 
-  InpTitulo.value=""
-  InpDescri.value=""
+  titule = "";
+  description = "";
+});
 
-})
+const cargar = () => {
+  const data = JSON.parse(localStorage.getItem("notes"));
+  array = data;
 
+  root.innerHTML = "";
 
-function card() {
+  if (!localStorage.getItem("notes") || data.length === 0) {
+    infoHtml("No tiene Notas, añada una nota Porfavor");
+    return;
+  }
 
-  datoB.forEach(({id,titulo,descri}) => {
+  root.classList.add("gri");
+  data.map((item) => {
+    addNotaCart(item.id, item.titule, item.description);
+  });
+};
 
-    addTares.innerHTML += `
-    <div class="card" data-id=${id}>
-       <div class="card-header card-header-text text-center card-header-primary">
-         <div class="card-text">
-           <h4 class="card-title">${titulo}</h4>
-         </div>
-       </div>
-       <div class="card-body">
-       <p class="card-text">
-          ${descri}
-       </p>
+const addNotaCart = (id, titulo, description) => {
+  root.innerHTML += `
+    <div class="card transition" data-id=${id}>
+      <div class="card-header card-header-text text-center card-header-primary">
+        <div class="card-text">
+          <h4 class="card-title">${titulo}</h4>
+        </div>
+      </div>
+      <div class="card-body">
+      <p class="card-text">
+          ${description}
+      </p>
           <button class="btn btn-danger" onclick="eliminar(event)" >eliminar</button>
-       </div>
+      </div>
     </div>
     `;
-  });
+};
 
-}
+const infoHtml = (info) => {
+  const div = document.createElement("div");
+  div.innerHTML = `<h2 class="noNotas">${info}</h2>`;
+  root.appendChild(div);
+  root.classList.remove("gri");
+};
 
+const eliminar = (event) => {
+  const element = event.target.parentNode.parentNode;
+  element.classList.add("delite");
 
-function eliminar(event) {
-  let ide = event.target.parentNode.parentNode.getAttribute('data-id')
-
-  event.target.parentNode.parentNode.parentNode.innerHTML=""
-
-  let r = datoB.filter(eli => eli.id != ide)
-
-  datoB = r
-
-  card()
-}
+  setTimeout(() => {
+    const deliter = array.filter(
+      (item) => item.id != element.getAttribute("data-id")
+    );
+    localStorage.setItem("notes", JSON.stringify(deliter));
+    cargar();
+  }, 800);
+};
