@@ -5,7 +5,6 @@ body {
   overflow: hidden;
   margin: 80px auto;
   width: 70%;
-  height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
   gap: 2rem;
@@ -19,6 +18,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 500px;
+  max-height: 500px;
 }
 .transition {
   display: flex;
