@@ -1,10 +1,11 @@
-body{
+body {
   background-color: #202020;
-
 }
 .gri {
+  overflow: hidden;
   margin: 80px auto;
   width: 70%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
   gap: 2rem;
@@ -14,8 +15,16 @@ body{
   padding-left: 20px;
 }
 
-#noNotas {
+.noNotas {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.transition {
+  display: flex;
+  transition: all 0.5s;
+}
+.delite {
+  margin-left: 30px;
+  opacity: 0;
 }
