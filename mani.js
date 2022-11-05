@@ -3,7 +3,6 @@ let array = [];
 
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
-    createModal();
     cargar();
   });
 })();
