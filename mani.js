@@ -1,5 +1,6 @@
 const root = document.getElementById("root");
-let array = [];
+
+let array;
 
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
