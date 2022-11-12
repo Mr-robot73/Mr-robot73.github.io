@@ -21,7 +21,7 @@ document.getElementById("add").addEventListener("click", () => {
     titule,
     description,
   };
-  array = [...array, objectData];
+  array.push(objectData)
 
   localStorage.setItem("notes", JSON.stringify(array));
   cargar();
