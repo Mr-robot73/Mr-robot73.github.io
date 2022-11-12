@@ -1,6 +1,5 @@
 const root = document.getElementById("root");
-
-let array;
+let array = [];
 
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
@@ -21,7 +20,7 @@ document.getElementById("add").addEventListener("click", () => {
     titule,
     description,
   };
-  array.push(objectData)
+  array = [...array, objectData];
 
   localStorage.setItem("notes", JSON.stringify(array));
   cargar();
